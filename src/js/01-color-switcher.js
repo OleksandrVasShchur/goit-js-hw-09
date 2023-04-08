@@ -26,8 +26,10 @@ changeColors = setInterval(() => {
 
 
 function onClickStop() {
-  buttonStart.setAttribute("disabled", false);
+  
   // buttonStop.setAttribute("disabled", true);
   clearInterval(changeColors)
+  
+  buttonStart.setAttribute("disabled", false);
 }
 
