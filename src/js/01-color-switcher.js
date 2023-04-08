@@ -14,13 +14,13 @@ buttonStop.setAttribute("disabled", true);
  
 function onClickStart() { 
  buttonStart.setAttribute("disabled", true);
- buttonStop.setAttribute("disabled", false);
+
 changeColors = setInterval(() => {
     bodyColor.style.backgroundColor = getRandomHexColor()
     console.log(bodyColor);
    
   }, 1000);
- 
+  buttonStop.setAttribute("disabled", false);
 }
 
 
