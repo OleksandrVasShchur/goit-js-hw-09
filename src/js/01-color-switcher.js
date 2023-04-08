@@ -10,17 +10,17 @@ function getRandomHexColor() {
 buttonStop.setAttribute("disabled", true);
 
   buttonStart.addEventListener("click", onClickStart);
-  
+
+  buttonStop.addEventListener("click", onClickStop);
  
 function onClickStart() { 
  buttonStart.setAttribute("disabled", true);
-
+ buttonStop.setAttribute("disabled", false);
 changeColors = setInterval(() => {
     bodyColor.style.backgroundColor = getRandomHexColor()
     console.log(bodyColor);
    
   }, 1000);
-  buttonStop.setAttribute("disabled", false);
 }
 
 
@@ -28,9 +28,6 @@ changeColors = setInterval(() => {
 function onClickStop() {
   buttonStart.setAttribute("disabled", false);
   buttonStop.setAttribute("disabled", true);
-  buttonStop.addEventListener("click", () => {
-    clearInterval(changeColors);
-  });
-  
+  clearInterval(changeColors)
 }
 
