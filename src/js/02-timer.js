@@ -35,7 +35,7 @@ function timer() {
   const time = dateToday - deadLine;
   console.log(time);
   
-  function convertMs(time) {
+  // function convertMs(time) {
     // Number of milliseconds per unit of time
     const second = 1000;
     const minute = second * 60;
@@ -51,14 +51,15 @@ function timer() {
     // Remaining seconds
     const seconds = Math.floor((((time % day) % hour) % minute) / second);
 
+
     dayElement.textContent = days;
     hourElement.textContent = hours;
     minuteElement.textContent = minutes;
     secondElement.secondElement = seconds;
-    
+   
     // return { days, hours, minutes, seconds };
   }
-}
+// }
 setInterval(timer, 1000);
 
 // console.log(convertMs(time)); // {days: 0, hours: 0, minutes: 0, seconds: 2}
