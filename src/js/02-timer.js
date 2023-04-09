@@ -20,43 +20,46 @@ const options = {
   minuteIncrement: 1,
   onClose(selectedDates) {
 deadLine = selectedDates;
-    console.log(selectedDates);
-    
+    console.log(selectedDates[0]);
+    if(selectedDates <= dateToday){
+      alert("no work");
+    }
   },
 };
 flatpickr("#datetime-picker", {options});
+console.log("lllkjsdfas;dkljfn");
 
 
 
 
 
-// function timer() {
+function timer() {
 
-//   const dateToday = new Date();
-//   const time = dateToday - deadLine;
-//   console.log(time);
+  const dateToday = new Date();
+  const time = dateToday - deadLine;
+  console.log(time);
   
-//   function convertMs(time) {
-//     // Number of milliseconds per unit of time
-//     const second = 1000;
-//     const minute = second * 60;
-//     const hour = minute * 60;
-//     const day = hour * 24;
+  function convertMs(time) {
+    // Number of milliseconds per unit of time
+    const second = 1000;
+    const minute = second * 60;
+    const hour = minute * 60;
+    const day = hour * 24;
   
-//     // Remaining days
-//     const days = Math.floor(time / day);
-//     // Remaining hours
-//     const hours = Math.floor((time % day) / hour);
-//     // Remaining minutes
-//     const minutes = Math.floor(((time % day) % hour) / minute);
-//     // Remaining seconds
-//     const seconds = Math.floor((((time % day) % hour) % minute) / second);
+    // Remaining days
+    const days = Math.floor(time / day);
+    // Remaining hours
+    const hours = Math.floor((time % day) / hour);
+    // Remaining minutes
+    const minutes = Math.floor(((time % day) % hour) / minute);
+    // Remaining seconds
+    const seconds = Math.floor((((time % day) % hour) % minute) / second);
 
-//     return { days, hours, minutes, seconds };
+    return { days, hours, minutes, seconds };
     
-//   }
-// }
-// setInterval(timer, 1000);
+  }
+}
+setInterval(timer, 1000);
 
 // dayElement.textContent = days;
 // hourElement.textContent = hours;
@@ -68,14 +71,7 @@ flatpickr("#datetime-picker", {options});
 
 
 
-// // If using flatpickr in a framework, its recommended to pass the element directly
-// flatpickr(element, {});
 
-// // Otherwise, selectors are also supported
-// flatpickr("#myID", {});
-
-// // creates multiple instances
-// flatpickr(".anotherSelector");
 
 
 
