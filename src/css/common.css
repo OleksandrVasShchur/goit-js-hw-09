@@ -16,3 +16,10 @@ img {
   display: block;
   max-width: 100%;
 }
+
+.field {
+  display: flex;
+}
+.value {
+  flex-wrap: nowrap;
+}
