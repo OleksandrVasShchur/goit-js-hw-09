@@ -57,7 +57,7 @@ function timer() {
     minuteElement.textContent = minutes;
     secondElement.secondElement = seconds;
    
-    // return { days, hours, minutes, seconds };
+    return { days, hours, minutes, seconds };
   }
 // }
 setInterval(timer, 1000);
