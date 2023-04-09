@@ -2,12 +2,29 @@ import flatpickr from "flatpickr";
 import "flatpickr/dist/flatpickr.min.css";
 
 
-const deadLine = new Date(2023, 7, 5);
+// const deadLine = new Date(2023, 7, 5);
 
 const dayElement = document.querySelector("[data-days]");
 const hourElement = document.querySelector("[data-hours]");
 const minuteElement = document.querySelector("[data-minutes]");
 const secondElement = document.querySelector("[data-seconds]");
+
+let deadLine = null; 
+
+
+
+const options = {
+  enableTime: true,
+  time_24hr: true,
+  defaultDate: new Date(),
+  minuteIncrement: 1,
+  onClose(selectedDates) {
+deadLine = selectedDates;
+    console.log(selectedDates[0]);
+  },
+};
+flatpickr("#datetime-picker", {options});
+
 
 
 
@@ -15,7 +32,7 @@ const secondElement = document.querySelector("[data-seconds]");
 function timer() {
 
   const dateToday = new Date();
-  const time = deadLine - dateToday;
+  const time = dateToday - deadLine;
   console.log(time);
   
   function convertMs(time) {
@@ -40,29 +57,14 @@ function timer() {
     secondElement.secondElement = seconds;
     
     // return { days, hours, minutes, seconds };
-    
   }
- 
-
 }
-
 setInterval(timer, 1000);
 
 // console.log(convertMs(time)); // {days: 0, hours: 0, minutes: 0, seconds: 2}
 
 
 
-const options = {
-    enableTime: true,
-    time_24hr: true,
-    defaultDate: new Date(),
-    minuteIncrement: 1,
-    onClose(selectedDates) {
-      console.log(selectedDates[0]);
-    },
-  };
-
-  flatpickr("#datetime-picker", {options});
 
 
 // // If using flatpickr in a framework, its recommended to pass the element directly
