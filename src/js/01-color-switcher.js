@@ -7,12 +7,12 @@ function getRandomHexColor() {
   const buttonStart = document.querySelector("button[data-start]");
   const buttonStop = document.querySelector("button[data-stop]");
  const bodyColor = document.querySelector("body");
-buttonStop.setAttribute("disabled", true);
 
   buttonStart.addEventListener("click", onClickStart);
 
   buttonStop.addEventListener("click", onClickStop);
- 
+  buttonStop.setAttribute("disabled", true);
+  
 function onClickStart() { 
  buttonStart.setAttribute("disabled", true);
  buttonStop.removeAttribute("disabled");
