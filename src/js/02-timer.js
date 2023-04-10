@@ -1,58 +1,76 @@
-import flatpickr from "flatpickr";
+import flatpickr from 'flatpickr';
 import "flatpickr/dist/flatpickr.min.css";
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 
+const buttonStart = document.querySelector("[data-start]");
+const inputArea = document.getElementById("datetime-picker")
 const dayElement = document.querySelector("[data-days]");
 const hourElement = document.querySelector("[data-hours]");
 const minuteElement = document.querySelector("[data-minutes]");
 const secondElement = document.querySelector("[data-seconds]");
 
-let deadLine = new Date(2023, 7, 5); 
 
+let timerId = null;
+let differenceTime = 0; 
+let formatDate = null;
 
 
 const options = {
   enableTime: true,
   time_24hr: true,
-  noCalendar: true,
   defaultDate: new Date(),
   minuteIncrement: 1,
-  minDate: "today",
   onClose(selectedDates) {
-// deadLine = selectedDates[0];
     console.log(selectedDates[0]);
-  
+    curentDiffDateVolume(selectedDates[0]);
   },
 };
-flatpickr("#datetime-picker", {options});
-console.log("lllkjsdfas;dkljfn");
-console.log(options);
+
+buttonStart.setAttribute("disabled", true);
+
+flatpickr(inputArea, options);
+
+buttonStart.addEventListener("click", onButtonStart);
 
 
+function onButtonStart() {
+  timerId = setInterval(timer, 1000);
+}
 
+
+function curentDiffDateVolume(selectedDates) {
+  const curentDate = Date.now();
+
+if(selectedDates < curentDate) {
+  buttonStart.setAttribute("disabled", true);
+  return Notify.failure("Please choose a date in the future")
+}else{
+  differenceTime = selectedDates.getTime() - curentDate;
+  formatDate = convertMs(differenceTime);
+
+  upgradeDate(formatDate);
+  buttonStart.removeAttribute("disabled");
+}
+
+}
 
 function timer() {
+  buttonStart.setAttribute("disabled", true);
+  inputArea.setAttribute("disabled", true);
 
-  const dateToday = new Date();
-  const time = deadLine - dateToday ;
-  console.log(time);
-  convertMs(time);
-  return;
-  }
-setInterval(timer, 1000);
+  differenceTime -= 1000;
 
-// dayElement.textContent = days;
-// hourElement.textContent = hours;
-// minuteElement.textContent = minutes;
-// secondElement.secondElement = seconds;
-// console.log(convertMs(time)); // {days: 0, hours: 0, minutes: 0, seconds: 2}
+  if(secondElement.textContent <= 0 && minuteElement.textContent <= 0) {
+    clearInterval(timerId);
+  } 
+    formatDate = convertMs(differenceTime);
+    upgradeDate(formatDate);
+  console.log(formatDate);
+}
 
 
-
-
-
-
-function convertMs(time) {
+function convertMs(differenceTime) {
   // Number of milliseconds per unit of time
   const second = 1000;
   const minute = second * 60;
@@ -60,19 +78,23 @@ function convertMs(time) {
   const day = hour * 24;
 
   // Remaining days
-  const days = Math.floor(time / day);
+  const days = Math.floor(differenceTime/ day);
   // Remaining hours
-  const hours = Math.floor((time % day) / hour);
+  const hours = Math.floor((differenceTime % day) / hour);
   // Remaining minutes
-  const minutes = Math.floor(((time % day) % hour) / minute);
+  const minutes = Math.floor(((differenceTime % day) % hour) / minute);
   // Remaining seconds
-  const seconds = Math.floor((((time % day) % hour) % minute) / second);
+  const seconds = Math.floor((((differenceTime % day) % hour) % minute) / second);
 
   return { days, hours, minutes, seconds };
 }
 
+function upgradeDate(formatDate){
 
+dayElement.textContent = formatDate.days;
+hourElement.textContent = formatDate.hours;
+minuteElement.textContent = formatDate.minutes;
+secondElement.secondElement = formatDate.seconds;
 
-
-
+}
 
