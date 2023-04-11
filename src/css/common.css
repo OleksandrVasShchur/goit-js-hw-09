@@ -17,10 +17,30 @@ img {
   display: block;
   max-width: 100%;
 }
-
-.field {
+.timer {
   display: flex;
+  width: 700px;
+  column-gap: 40px;
+  height: auto;
+  
+}
+button {
+  width: 150px;
+  height: 40px;
+  background-color:  cadetblue;
+  color: darkblue;
+  font-size: 20px;
+}
+.field {
+font-size: 20px;
 }
 .value {
-  flex-wrap: nowrap;
+color: red;
+}
+#datetime-picker {
+  margin-bottom: 25px;
+  width: 250px;
+  height: 40px;
+  font-size: 20px;
+
 }
