@@ -45,13 +45,12 @@ function curentDiffDateVolume(selectedDates) {
 if(selectedDates < curentDate) {
   buttonStart.setAttribute("disabled", true);
   return Notify.failure("Please choose a date in the future")
-}else{
+}
   differenceTime = selectedDates.getTime() - curentDate;
   formatDate = convertMs(differenceTime);
 
   upgradeDate(formatDate);
   buttonStart.removeAttribute("disabled");
-}
 
 }
 
@@ -63,14 +62,16 @@ function timer() {
 
   if(secondElement.textContent <= 0 && minuteElement.textContent <= 0) {
     clearInterval(timerId);
-  } 
+  } else {
     formatDate = convertMs(differenceTime);
     upgradeDate(formatDate);
-  console.log(formatDate);
+    console.log(formatDate);
+  }
+
 }
 
 
-function convertMs(differenceTime) {
+function convertMs(Ms) {
   // Number of milliseconds per unit of time
   const second = 1000;
   const minute = second * 60;
@@ -78,23 +79,44 @@ function convertMs(differenceTime) {
   const day = hour * 24;
 
   // Remaining days
-  const days = Math.floor(differenceTime/ day);
+  const days = Math.floor(Ms/ day);
   // Remaining hours
-  const hours = Math.floor((differenceTime % day) / hour);
+  const hours = Math.floor((Ms % day) / hour);
   // Remaining minutes
-  const minutes = Math.floor(((differenceTime % day) % hour) / minute);
+  const minutes = Math.floor(((Ms % day) % hour) / minute);
   // Remaining seconds
-  const seconds = Math.floor((((differenceTime % day) % hour) % minute) / second);
+  const seconds = Math.floor((((Ms % day) % hour) % minute) / second);
 
   return { days, hours, minutes, seconds };
 }
 
 function upgradeDate(formatDate){
+  let formatSeconds =String(formatDate.seconds);
+  let formatMinutes = formatDate.minutes;
+  let formatHours = formatDate.hours;
+  let formatDays =  String(formatDate.days);
 
-dayElement.textContent = formatDate.days;
-hourElement.textContent = formatDate.hours;
-minuteElement.textContent = formatDate.minutes;
-secondElement.secondElement = formatDate.seconds;
+  secondElement.textContent = addLeadingZero(formatSeconds);
+  minuteElement.textContent = addLeadingZero(formatMinutes);
+  hourElement.textContent =addLeadingZero(formatHours);
+  dayElement.textContent = addLeadingZero(formatDays);
 
+  
 }
 
+function addLeadingZero(value){
+
+if(value.length < 2) {
+  return value.padStart(2, '0')
+} else {
+  return value;
+}
+
+}
+// Функція convertMs() повертає об'єкт з розрахованим часом,
+//  що залишився до кінцевої дати. Зверни увагу, що вона не форматує результат.
+//   Тобто, якщо залишилося 4 хвилини або будь-якої іншої складової часу,
+//    то функція поверне 4, а не 04. В інтерфейсі таймера необхідно додавати 0,
+//     якщо в числі менше двох символів. Напиши функцію addLeadingZero(value), 
+//     яка використовує метод padStart() і перед рендерингом інтефрейсу 
+//     форматує значення.
